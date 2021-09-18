@@ -1,0 +1,134 @@
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --clr-dark: #19345e;
+  --clr-primary: #f47522;
+  --clr-light: #fff;
+}
+
+body {
+  font-family: roboto, sans-serif;
+  color: var(--clr-dark) !important;
+}
+
+.nav .nav-link {
+  color: var(--clr-dark) !important;
+}
+
+.nav .nav-link.active {
+  color: var(--clr-primary) !important;
+}
+
+.main {
+  height: 100vh;
+}
+
+.main--hero {
+  background-image: url("./../img/bg-img.png");
+  background-position: center;
+  background-size: cover;
+}
+
+.img--profile {
+  border-radius: 50%;
+}
+
+.btn {
+  border-radius: 20px !important;
+  background-color: var(--clr-primary) !important;
+  color: var(--clr-light);
+  font-size: 16px;
+  border: none;
+}
+
+.btn:hover {
+  color: var(--clr-light) !important;
+  background-color: var(--clr-dark) !important;
+}
+
+.img--logo {
+  width: 275px;
+}
+
+.left {
+  background-image: url("./../img/charles-rRWiVQzLm7k-unsplash.jpg");
+  background-position: center;
+  background-size: cover;
+  position: relative;
+}
+
+.left::before {
+  background-color: rgba(25, 52, 94, 0.65);
+  content: "";
+  display: block;
+  height: 100%;
+  position: absolute;
+  width: 100%;
+}
+
+.message {
+  display: block;
+  width: 100%;
+  height: 100px;
+}
+
+.main--message {
+  display: grid;
+  place-items: center;
+  place-content: center;
+  height: 100vh;
+  position: relative;
+}
+
+.main--message::after {
+  position: absolute;
+  height: 100px;
+  bottom: 0;
+  left: 0;
+  width: 100vw;
+  background-color: #ccd7eb;
+  content: "";
+  z-index: -1;
+}
+
+.message--card {
+  padding: 3rem;
+  border: 1px solid #ccd7eb;
+  border-radius: 10px;
+  width: 600px;
+  z-index: 100;
+  position: relative;
+}
+
+@media (max-width: 768px) {
+  .message--card {
+    border: none;
+    width: 100%;
+  }
+}
+
+.message--card::after {
+  content: url("./../img/img-dot.png");
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  transform: translate(-50%, 50%);
+}
+
+.divider {
+  display: block;
+  height: 2px;
+  width: 300px;
+  margin: 2rem auto 1rem;
+  background-color: #ccd7eb;
+}
+
+.message__end {
+  font-size: 18px;
+}
