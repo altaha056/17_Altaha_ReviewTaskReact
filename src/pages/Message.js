@@ -1,7 +1,9 @@
 import { useSelector } from "react-redux";
 
 const Message = () => {
-  const { name, email, phone, nationality, message } = useSelector((state) => state.message);
+  const { name, email, phone, nationality, message } = useSelector(
+    (state) => state.message
+  );
   return (
     <main className="main--message">
       <div className="message--card">
@@ -15,7 +17,7 @@ const Message = () => {
           Thanks for contacting us! <br />
           We will be in touch with you shortly.
         </p>
-        <a href="./" className="btn">
+        <a href="./" className="btn px-4 py-2">
           Home
         </a>
       </div>
