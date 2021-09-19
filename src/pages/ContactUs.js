@@ -1,19 +1,27 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
 import { addMessage } from "../store/actions";
 
 const ContactUs = () => {
-  const fullNameEl = useRef();
+  const fullNameRef = useRef();
   const emailAddressEl = useRef();
   const phoneNumberEl = useRef();
   const nationalityEl = useRef();
   const messageEl = useRef();
 
   const [error, setError] = useState({
-    errName: "",
-    errEmail: "",
-    errPhone: "",
+    errName: null,
+    errEmail: null,
+    errPhone: null,
+  });
+
+  const [newMessage, setNewMessage] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    nationality: "",
+    message: "",
   });
 
   const dispatch = useDispatch();
@@ -22,7 +30,7 @@ const ContactUs = () => {
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
-    const name = fullNameEl.current.value;
+    const name = fullNameRef.current.value;
     const email = emailAddressEl.current.value;
     const phone = phoneNumberEl.current.value;
     const nationality = nationalityEl.current.value;
@@ -30,11 +38,11 @@ const ContactUs = () => {
 
     if (name === "") {
       setError((error) => {
-        return { ...error, errName: "Full name can not be empty" };
+        return { ...error, errName: "  can not be empty" };
       });
     } else if (!name.match(/^[a-zA-Z ]*$/)) {
       setError((error) => {
-        return { ...error, errName: "Full name is only accepted letter" };
+        return { ...error, errName: " is only accepted letter" };
       });
     } else {
       setError((error) => {
@@ -44,11 +52,15 @@ const ContactUs = () => {
 
     if (email === "") {
       setError((error) => {
-        return { ...error, errEmail: "Email can not be empty" };
+        return { ...error, errEmail: "  can not be empty" };
       });
-    } else if (!email.match(/^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i)) {
+    } else if (
+      !email.match(
+        /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i
+      )
+    ) {
       setError((error) => {
-        return { ...error, errEmail: "Email is not valid" };
+        return { ...error, errEmail: "  is not valid" };
       });
     } else {
       setError((error) => {
@@ -58,11 +70,11 @@ const ContactUs = () => {
 
     if (phone === "") {
       setError((error) => {
-        return { ...error, errPhone: "Phone number can not be empty" };
+        return { ...error, errPhone: "  can not be empty" };
       });
-    } else if (!phone.match(/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s./0-9]*$/)) {
+    } else if (!phone.match(/^[0-9]{9,14}$/)) {
       setError((error) => {
-        return { ...error, errPhone: "Phone number is not valid" };
+        return { ...error, errPhone: "  is only accept number 9-14 length" };
       });
     } else {
       setError((error) => {
@@ -70,19 +82,25 @@ const ContactUs = () => {
       });
     }
 
-    const newMessage = {
+    setNewMessage({
       name,
       email,
       phone,
       nationality,
       message,
-    };
+    });
+  };
 
-    if (error.errName === "" && error.errEmail === "" && error.errPhone === "") {
+  useEffect(() => {
+    if (
+      error.errName === "" &&
+      error.errEmail === "" &&
+      error.errPhone === ""
+    ) {
       dispatch(addMessage(newMessage));
       history.push("/message");
     }
-  };
+  }, [dispatch, error, history, newMessage]);
 
   return (
     <main className="main--form">
@@ -90,7 +108,7 @@ const ContactUs = () => {
         <div className="row">
           <div
             className="
-                col-lg-4
+                col-lg-5
                 d-md-none d-lg-flex
                 justify-content-center
                 align-items-center
@@ -99,32 +117,56 @@ const ContactUs = () => {
           >
             <img src="./img/logo-ALTA-v2@2x.png" alt="" className="img--logo" />
           </div>
-          <div className="col-lg-8 col-md-12">
+          <div className="col-lg-7 col-md-12 p-5">
             <div className="container p-5">
-              <h1>Contact Us</h1>
+              <h1 className="mb-5">Contact Us</h1>
               <form onSubmit={onSubmitHandler}>
-                <div className="mb-3">
+                <div className="mb-4">
                   <label htmlFor="fullName" className="form-label">
                     Full Name
+                    {error.errName !== "" && (
+                      <small className="text-danger ">{error.errName}</small>
+                    )}
                   </label>
-                  <input type="text" className="form-control" id="fullName" placeholder="Your Full Name Here..." ref={fullNameEl} />
-                  {error.errName !== "" && <small className="text-danger form-text">{error.errName}</small>}
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="fullName"
+                    placeholder="Your Full Name Here..."
+                    ref={fullNameRef}
+                  />
                 </div>
-                <div className="mb-3">
+                <div className="mb-4">
                   <label htmlFor="email" className="form-label">
                     Email Address
+                    {error.errEmail && (
+                      <small className="text-danger">{error.errEmail}</small>
+                    )}
                   </label>
-                  <input type="text" className="form-control" id="email" placeholder="example@domail.com" ref={emailAddressEl} />
-                  {error.errEmail && <small className="text-danger form-text">{error.errEmail}</small>}
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="email"
+                    placeholder="example@domail.com"
+                    ref={emailAddressEl}
+                  />
                 </div>
-                <div className="mb-3">
+                <div className="mb-4">
                   <label htmlFor="phone" className="form-label">
                     Phone Number
+                    {error.errPhone && (
+                      <small className="text-danger ">{error.errPhone}</small>
+                    )}
                   </label>
-                  <input type="text" className="form-control" id="phone" placeholder="08573890xxxxx" ref={phoneNumberEl} />
-                  {error.errPhone && <small className="text-danger form-text">{error.errPhone}</small>}
+                  <input
+                    type="number"
+                    className="form-control"
+                    id="phone"
+                    placeholder="08573890xxxxx"
+                    ref={phoneNumberEl}
+                  />
                 </div>
-                <div className="mb-3">
+                <div className="mb-4">
                   <label htmlFor="fullName" className="form-label">
                     Nationality
                   </label>
@@ -134,15 +176,21 @@ const ContactUs = () => {
                     <option value="oth">Other</option>
                   </select>
                 </div>
-                <div className="mb-3">
+                <div className="mb-4">
                   <label htmlFor="message" className="form-label">
                     Message
                   </label>
                   <br />
-                  <textarea name="message" id="message" placeholder="Your Message Here..." className="message" ref={messageEl}></textarea>
+                  <textarea
+                    name="message"
+                    id="message"
+                    placeholder="Your Message Here..."
+                    className="message"
+                    ref={messageEl}
+                  ></textarea>
                 </div>
 
-                <button type="submit" className="btn">
+                <button type="submit" className="btn py-2 px-4">
                   Submit
                 </button>
               </form>
