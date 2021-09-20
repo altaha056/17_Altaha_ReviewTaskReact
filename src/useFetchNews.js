@@ -8,10 +8,10 @@ const useFetchNews = () => {
   const dispatch = useDispatch();
 
   const setNews = useCallback(
-    async (q, country, category) => {
+    async (search, country, category) => {
       try {
         const response = await axios.get(
-          `https://newsapi.org/v2/top-headlines?apiKey=e2c33fa4d8af42bf8273a226d28060e6&q=${q}&category=${category}&country=${country}`
+          `https://newsapi.org/v2/top-headlines?apiKey=e2c33fa4d8af42bf8273a226d28060e6&q=${search}&category=${category}&country=${country}`
         );
         const updatedNews = response.data.articles.map((article) => {
           return {

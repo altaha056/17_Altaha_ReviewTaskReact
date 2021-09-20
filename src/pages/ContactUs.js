@@ -5,10 +5,10 @@ import { addMessage } from "../store/actions";
 
 const ContactUs = () => {
   const fullNameRef = useRef();
-  const emailAddressEl = useRef();
-  const phoneNumberEl = useRef();
-  const nationalityEl = useRef();
-  const messageEl = useRef();
+  const emailAddressRef = useRef();
+  const phoneNumberRef = useRef();
+  const nationalityRef = useRef();
+  const messageRef = useRef();
 
   const [error, setError] = useState({
     errName: null,
@@ -31,10 +31,10 @@ const ContactUs = () => {
   const onSubmitHandler = (e) => {
     e.preventDefault();
     const name = fullNameRef.current.value;
-    const email = emailAddressEl.current.value;
-    const phone = phoneNumberEl.current.value;
-    const nationality = nationalityEl.current.value;
-    const message = messageEl.current.value;
+    const email = emailAddressRef.current.value;
+    const phone = phoneNumberRef.current.value;
+    const nationality = nationalityRef.current.value;
+    const message = messageRef.current.value;
 
     if (name === "") {
       setError((error) => {
@@ -148,7 +148,7 @@ const ContactUs = () => {
                     className="form-control"
                     id="email"
                     placeholder="example@domail.com"
-                    ref={emailAddressEl}
+                    ref={emailAddressRef}
                   />
                 </div>
                 <div className="mb-4">
@@ -163,14 +163,14 @@ const ContactUs = () => {
                     className="form-control"
                     id="phone"
                     placeholder="08573890xxxxx"
-                    ref={phoneNumberEl}
+                    ref={phoneNumberRef}
                   />
                 </div>
                 <div className="mb-4">
                   <label htmlFor="fullName" className="form-label">
                     Nationality
                   </label>
-                  <select className="form-select" ref={nationalityEl}>
+                  <select className="form-select" ref={nationalityRef}>
                     <option value="ind">Indonesia</option>
                     <option value="eng">English</option>
                     <option value="oth">Other</option>
@@ -186,7 +186,7 @@ const ContactUs = () => {
                     id="message"
                     placeholder="Your Message Here..."
                     className="message"
-                    ref={messageEl}
+                    ref={messageRef}
                   ></textarea>
                 </div>
 

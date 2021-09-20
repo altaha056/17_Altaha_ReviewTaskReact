@@ -3,10 +3,12 @@ import NewsSearch from "../components/NewsSearch";
 
 const News = () => {
   return (
-    <main className="news">
+    <>
       <NewsSearch />
-      <NewsList />
-    </main>
+      <div className="row row-cols-1 row-cols-md-3 g-4">
+        <NewsList />
+      </div>
+    </>
   );
 };
 

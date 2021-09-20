@@ -1,4 +1,4 @@
-import { UPDATE_NEWS } from "../actions/actionTypes";
+const UPDATE_NEWS = "UPDATE_NEWS";
 
 const newsReducer = (state = [], action) => {
   switch (action.type) {

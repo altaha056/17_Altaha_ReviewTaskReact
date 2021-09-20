@@ -1,4 +1,5 @@
-import { ADD_MESSAGE, UPDATE_NEWS } from "./actionTypes";
+const ADD_MESSAGE = "ADD_MESSAGE";
+const UPDATE_NEWS = "UPDATE_NEWS";
 
 export const addMessage = (message) => {
   return {

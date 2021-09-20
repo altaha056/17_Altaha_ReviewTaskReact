@@ -1,6 +1,11 @@
-import { ADD_MESSAGE } from "../actions/actionTypes";
-
-const initialValue = { name: "", email: "", phone: "", nationality: "", message: "" };
+const ADD_MESSAGE = "ADD_MESSAGE";
+const initialValue = {
+  name: "no name",
+  email: "no email",
+  phone: "no number",
+  nationality: "nationality unknown",
+  message: "no message",
+};
 
 const messageReducer = (state = initialValue, action) => {
   switch (action.type) {

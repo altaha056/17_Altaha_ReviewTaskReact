@@ -1,30 +1,44 @@
 import moment from "moment";
-import "./NewsItem.css";
 
-const NewsItem = ({ author, content, description, image, publishedAt, source, title }) => {
-  const newContent = content ? content.replace(/\[.*?\]/g, "").replace("…", "") : content;
+const NewsItem = ({
+  author,
+  content,
+  description,
+  image,
+  publishedAt,
+  source,
+  title,
+}) => {
+  const newContent = content
+    ? content.replace(/\[.*?\]/g, "").replace("…", "")
+    : content;
   return (
-    <div className={"blog-card"}>
-      <div className="meta">
-        <div className="photo" style={{ backgroundImage: `url(${image})` }}></div>
-        <ul className="details">
-          <li className="author">
-            <a href={author}>{author}</a>
-          </li>
-          <li className="date">{moment(publishedAt).format("LL")}</li>
-        </ul>
+    <>
+      <div className="col m-4">
+        <div className="card w-100">
+          <img src={image} className="card-img-top " />
+          <div className="card-body">
+            <h5 className="card-title">{title}</h5>
+            <p className="fw-light">
+              {description} {newContent}
+            </p>
+            <p>{author}</p>
+            <a
+              href={source}
+              className="btn btn-outline-light py-2 px-4"
+              target="_blank"
+            >
+              Baca Selengkapnya
+            </a>
+          </div>
+          <div className="card-footer">
+            <small className="text-muted">
+              {moment(publishedAt).format("LL")}
+            </small>
+          </div>
+        </div>
       </div>
-      <div className="description">
-        <h1>{title}</h1>
-        <h2>{description}</h2>
-        <p> {newContent}</p>
-        <p className="read-more">
-          <a href={source} target="_blank" rel="noreferrer">
-            Read More
-          </a>
-        </p>
-      </div>
-    </div>
+    </>
   );
 };
 
